@@ -1,0 +1,91 @@
+﻿@model IEnumerable<User>
+
+<div class="alert alert-dismissible alert-info">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>Welcome!</strong> This <a href="#" class="alert-link">is your Gaming Item management System</a>, good luck!.
+</div>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-4">
+            <div class="card border-light mb-3" style="max-width: 20rem;">
+              <div class="card-header">Number of Items</div>
+              <div class="card-body">
+                <h4 class="card-title">0</h4>
+                <p class="card-text">These are the number of items you have in your Inventory. Keep track of your items as well as their display order</p>
+              </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card border-success mb-3" style="max-width: 20rem;">
+              <div class="card-header">Display Order of Items</div>
+              <div class="card-body">
+                <h4 class="card-title">0</h4>
+                <p class="card-text">Here are the total number of items we have in our shop. Keep products in stock by ordering them from our supplier</p>
+              </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card border-warning mb-3" style="max-width: 20rem;">
+              <div class="card-header">Item with least stock</div>
+              <div class="card-body">
+                <h4 class="card-title">0</h4>
+                <p class="card-text">Take note that 0 has the least stock. You could restock now by contacting the supplier.</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Your Items</h2>
+        </div>
+        
+    </div>
+    <br/>
+    <br/>
+
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+       <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Email</th>
+      <th scope="col">Password</th>
+     
+    </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+        {
+                if (obj.Email == "admin@admin.com")
+                {
+                    continue;
+                }
+                else
+                {
+                    <tr class="table-dark">
+
+                <td>
+                    @obj.Id
+                </td>
+                <td>
+                    @obj.Email
+                </td>
+                <td>
+                    @obj.Password
+                </td>
+           
+                <td>
+                    <div class="w-75 mx-2" role="group">
+                        <a asp-controller="Category" asp-action="EditAdmin" asp-route-id="@obj.Id" class="btn btn-secondary"><i class="bi bi-pencil-fill"></i>&nbsp;&nbsp;Edit</a>
+                        <a asp-controller="Category" asp-action="DeleteAdmin" asp-route-id="@obj.Id" class="btn btn-danger"><i class="bi bi-trash"></i>&nbsp;&nbsp;Delete</a>
+                    </div>
+                </td>
+            </tr>}
+        }
+    </tbody>
+
+</table>
+
+</div>

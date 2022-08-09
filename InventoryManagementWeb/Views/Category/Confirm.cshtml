@@ -1,0 +1,18 @@
+﻿@model Category
+
+<form method="post" asp-controller="Category" asp-action="Create" enctype="multipart/form-data">
+	<input asp-for="Id" hidden />
+	
+		<button type="submit" class="btn btn-secondary" style="width:150px">Confirm</button>
+		<a asp-controller="Category" asp-action="Index" class="btn btn-info ml-5" style="width:150px">
+			Back to Inventory 
+		</a>
+	</div>
+</form>
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}
+
+

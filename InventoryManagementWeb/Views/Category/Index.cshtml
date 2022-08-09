@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Category>
+@{
+    ViewData["Title"] = "Index";
+    float count = 0;
+    int qCount = 0;
+    int min = 9999;
+    string minItem = System.String.Empty;
+    foreach(var obj in Model)
+    {
+        count += obj.price * (float)obj.DisplayOrder;
+        qCount += obj.DisplayOrder;
+        if(obj.DisplayOrder < min)
+        {
+            minItem = obj.Name;
+            min = obj.DisplayOrder;
+        }
+    }
+}
+<div class="alert alert-dismissible alert-info">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>Welcome!</strong> This <a href="#" class="alert-link">is your Gaming Item management System</a>, good luck!.
+</div>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-4">
+            <div class="card border-light mb-3" style="max-width: 20rem;">
+              <div class="card-header">Total Checkout Price</div>
+              <div class="card-body">
+                <h4 class="card-title">@count</h4>
+                <p class="card-text">This is your total checkout price. Keep track of your items as well as their prices. You can only claim them once a payment is successful</p>
+              </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card border-success mb-3" style="max-width: 20rem;">
+              <div class="card-header">Display Order of Items</div>
+              <div class="card-body">
+                <h4 class="card-title">@qCount</h4>
+                <p class="card-text">Here are the total number of items we have in our shop. Keep products in stock by ordering them from our supplier</p>
+              </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card border-warning mb-3" style="max-width: 20rem;">
+              <div class="card-header">Item with least stock</div>
+              <div class="card-body">
+                <h4 class="card-title">@minItem</h4>
+                <p class="card-text">Take note that @minItem has the least stock. You could restock now by contacting the supplier.</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Your Items</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Category" asp-action="Create" class="btn btn-outline-warning">
+              <i class="bi bi-plus"></i>&nbsp;Add New Item
+            </a>
+
+        </div>
+    </div>
+    <br/>
+    <br/>
+
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+       <tr>
+      <th scope="col">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Order</th>
+      <th scope="col">Price</th>
+      <th scope="col">Created on</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+        {
+            <tr class="table-dark">
+                <th scope="row"><img src="@obj.imgURL" class="rounded-circle" width="50" height="50" asp-append-version="true"/></th>
+                <td>
+                    @obj.Name
+                </td>
+                <td>
+                    @obj.DisplayOrder
+                </td>
+                <td>
+                    @obj.price
+                </td>
+                <td>
+                    @obj.CreatedDateTime
+                </td>
+                <td>
+                    <div class="w-75 mx-2" role="group">
+                        <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-secondary"><i class="bi bi-pencil-fill"></i>&nbsp;&nbsp;Edit</a>
+                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger"><i class="bi bi-trash"></i>&nbsp;&nbsp;Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+ <a asp-controller="Category" asp-action="Payment" class="btn btn-secondary">&nbsp;&nbsp;Pay Items</a>
+</div>

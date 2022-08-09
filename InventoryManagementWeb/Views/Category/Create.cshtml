@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Item>
+
+
+	<div class="border-secondary p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Add New Item</h2>
+			<hr />
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+		@foreach(var obj in Model){
+		<div class="card mb-3">
+		  <h3 class="card-header">@obj.Name</h3>
+		  <div class="card-body">
+			<h5 class="card-title">@obj.Description</h5>
+		  </div>
+		  <img src="@obj.imgURL" />
+		  
+		  
+		  <div class="card-body">
+			<a href="#" class="card-link">@obj.price PHP</a>
+			
+		  </div>
+		  <div class="card-footer text-muted">
+			@obj.CreatedDateTime
+		  </div>
+		</div>
+		
+		  <a asp-controller="Category" asp-action="Confirm" asp-route-id="@obj.Id" class="btn btn-secondary"><i class="bi bi-pencil-fill"></i>&nbsp;&nbsp;Add</a>
+		
+		}
+		<a asp-controller="Category" asp-action="Index" class="btn btn-info ml-5" style="width:150px">
+			Back to Inventory 
+		</a>
+	</div>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}
+
+
